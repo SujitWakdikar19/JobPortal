@@ -55,15 +55,16 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             if (res.data.success) {
                 dispatch(setUser(res.data.user));
                 toast.success(res.data.message);
+                setLoading(false);
             }
         } catch (error) {
-            console.log(error);
+            
             toast.error(error.response.data.message);
+            setLoading(false);
         } finally{
             setLoading(false);
         }
         setOpen(false);
-        console.log(input);
     }
 
 

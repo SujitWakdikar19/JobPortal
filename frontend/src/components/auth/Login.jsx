@@ -22,7 +22,8 @@ const Login = () => {
     const { loading,user } = useSelector(store => store.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    
+    dispatch(setLoading(false));
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
     }
@@ -30,7 +31,7 @@ const Login = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            dispatch(setLoading(true));
+            setLoading(true);
             const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
                 headers: {
                     "Content-Type": "application/json"
@@ -41,9 +42,10 @@ const Login = () => {
                 dispatch(setUser(res.data.user));
                 navigate("/");
                 toast.success(res.data.message);
+                dispatch(setLoading(false));
             }
         } catch (error) {
-            console.log(error);
+            dispatch(setLoading(false));
             toast.error(error.response.data.message);
         } finally {
             dispatch(setLoading(false));

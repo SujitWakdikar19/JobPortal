@@ -30,7 +30,17 @@ const Signup = () => {
         setInput({ ...input, [e.target.name]: e.target.value });
     }
     const changeFileHandler = (e) => {
-        setInput({ ...input, file: e.target.files?.[0] });
+
+          const file = e.target.files?.[0];
+            if (!file) {
+                alert("Please select a file!");
+                return;
+            }
+
+            setInput({ ...input, file });
+
+
+    
     }
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -53,10 +63,10 @@ const Signup = () => {
             if (res.data.success) {
                 navigate("/login");
                 toast.success(res.data.message);
+                setLoading(false)
             }
         } catch (error) {
-            console.log(error);
-            console.log('error ')
+           setLoading(false)
             toast.error(error.response.data.message);
         } finally{
             dispatch(setLoading(false));

@@ -50,10 +50,12 @@ const PostJob = () => {
             });
             if(res.data.success){
                 toast.success(res.data.message);
+                setLoading(false);
                 navigate("/admin/jobs");
             }
         } catch (error) {
-            toast.error(error.response.data.message);
+            setLoading(false);   
+          toast.error(error.response.data.message);
         } finally{
             setLoading(false);
         }

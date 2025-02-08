@@ -3,8 +3,10 @@ import { JOB_API_END_POINT } from '@/utils/constant'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const useGetAllJobs = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const {searchedQuery} = useSelector(store=>store.job);
     useEffect(()=>{
@@ -16,6 +18,7 @@ const useGetAllJobs = () => {
                 }
             } catch (error) {
                 console.log(error);
+                // navigate("/login")
             }
         }
         fetchAllJobs();
