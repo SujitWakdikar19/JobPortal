@@ -78,10 +78,10 @@ export const updateCompany = async (req, res) => {
         const fileUri = getDataUri(file);
         // console.log()
         // const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-         console.log('started logo upload')
+         
         try {
             var cloudResponse = await cloudinary.uploader.upload(fileUri);
-            console.log('Upload successful:', cloudResponse);
+           
         } catch (error) {
             console.error('Error uploading file:', error);
         }

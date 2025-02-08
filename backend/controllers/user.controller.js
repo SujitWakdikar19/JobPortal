@@ -28,7 +28,6 @@ export const register = async (req, res) => {
                 message:"User exist already",
                 success: false
             })
-           
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -49,6 +48,10 @@ export const register = async (req, res) => {
         });
     } catch (error) {
         console.log(error,"this is error");
+        return res.status(500).json({
+            message:"User Signup Fails",
+            success:false
+        })
     }
 }
 export const login = async (req, res) => {
@@ -105,6 +108,10 @@ export const login = async (req, res) => {
         })
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            message: "Account login fails !!.",
+            success: false
+        })
     }
 }
 export const logout = async (req, res) => {
@@ -127,10 +134,10 @@ export const updateProfile = async (req, res) => {
         const fileUri = getDataUri(file);
         try{
             var cloudResponse = await cloudinary.uploader.upload(fileUri);
-            console.log(cloudResponse,'res')
+            
             // const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
         }catch(e){
-            console.log(e,'erero')
+            console.log(e)
         }
 
 
